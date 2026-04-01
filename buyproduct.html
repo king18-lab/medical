@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Vitalis Health | Advanced Medical Care</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    /* Navbar with solid black background and red bottom border */
+    .navbar-solid {
+      background: #000000;
+      border-bottom: 2px solid #e31b23;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    /* Mobile menu overlay animation */
+    .mobile-menu-overlay {
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0s linear 0.4s, opacity 0.2s;
+    }
+    .mobile-menu-overlay.active {
+      transform: translateX(0);
+      visibility: visible;
+      opacity: 1;
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0s linear 0s, opacity 0.2s;
+    }
+    
+    /* Normal button styles (rectangular with rounded corners) */
+    .nav-btn {
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .nav-btn.login {
+      border: 1.5px solid #e31b23;
+      color: #e31b23;
+      background: transparent;
+    }
+    .nav-btn.login:hover {
+      background: #e31b23;
+      color: black;
+      transform: translateY(-2px);
+    }
+    .nav-btn.signup {
+      background: #e31b23;
+      color: black;
+      box-shadow: 0 2px 8px rgba(227,27,35,0.3);
+    }
+    .nav-btn.signup:hover {
+      background: #b01017;
+      transform: translateY(-2px);
+      color: white;
+    }
+    .nav-link {
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #e31b23;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar with solid black background + red bottom border -->
+  <nav id="navbar" class="navbar-solid fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-3 flex justify-between items-center transition-all duration-300">
+    <a href="index.html" class="flex items-center gap-2">
+     <img src="stacklylogo (1).webp" alt="Logo" class="h-16 w-auto md:h-20">
+      <span class="text-xl md:text-2xl font-bold text-white"><span class="text-red-600"></span></span>
+    </a>
+    
+    <!-- Desktop Nav Links -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html" class="nav-link text-white text-sm font-medium">Home</a>
+      <a href="services.html" class="nav-link text-white text-sm font-medium">Services</a>
+      <a href="buyproduct.html" class="nav-link text-white text-sm font-medium">Buy Medicals</a>
+      <a href="about.html" class="nav-link text-white text-sm font-medium">About</a>
+       <a href="contact.html" class="nav-link text-white text-sm font-medium">Contact</a>
+    </div>
+    
+    <!-- Desktop Buttons (normal style, not circular) -->
+    <div class="hidden md:flex items-center gap-3">
+      <a href="login.html" class="nav-btn login">Login</a>
+      <a href="getstarted.html" class="nav-btn signup">Sign Up</a>
+    </div>
+    
+    <!-- Hamburger Button (Mobile) -->
+    <button id="menuBtn" class="md:hidden w-10 h-10 rounded-full bg-red-600 flex flex-col items-center justify-center gap-1.5 cursor-pointer hover:scale-110 transition">
+      <span class="w-5 h-0.5 bg-black block"></span>
+      <span class="w-4 h-0.5 bg-black block"></span>
+      <span class="w-5 h-0.5 bg-black block"></span>
+    </button>
+  </nav>
+  
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenu" class="mobile-menu-overlay fixed inset-0 bg-black/98 backdrop-blur-xl z-[100] flex flex-col items-center justify-center transform translate-x-full invisible opacity-0">
+    <button id="closeMenuBtn" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-black text-xl hover:scale-110 transition">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="flex flex-col items-center gap-6">
+     <a href="index.html" class="nav-link text-white text-sm font-medium">Home</a>
+      <a href="services.html" class="nav-link text-white text-sm font-medium">Services</a>
+      <a href="buyproduct.html" class="nav-link text-white text-sm font-medium">Buy Medicals</a>
+      <a href="about.html" class="nav-link text-white text-sm font-medium">About</a>
+       <a href="contact.html" class="nav-link text-white text-sm font-medium">Contact</a>
+      <div class="flex gap-4 mt-6">
+        <a href="login.html" class="px-6 py-2 border border-red-600 text-red-600 rounded-full font-medium">Login</a>
+        <a href="getstarted.html" class="px-6 py-2 bg-red-600 text-black rounded-full font-medium">Sign Up</a>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    
+    function openMenu() {
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    menuBtn.addEventListener('click', openMenu);
+    closeMenuBtn.addEventListener('click', closeMenu);
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+    
+    // Hero animation with GSAP
+    gsap.from('#home h1', { opacity: 0, y: 30, duration: 1, delay: 0.2 });
+    gsap.from('#home p', { opacity: 0, y: 30, duration: 1, delay: 0.4 });
+    gsap.from('#home .flex', { opacity: 0, y: 30, duration: 1, delay: 0.6 });
+    
+    // Newsletter form submission
+    const newsletterForm = document.getElementById('footerNewsletter');
+    const newsletterMsg = document.getElementById('newsletterMsg');
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      const email = emailInput.value.trim();
+      if (!email) {
+        newsletterMsg.textContent = 'Please enter an email address.';
+        newsletterMsg.style.color = '#ef4444';
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        newsletterMsg.textContent = 'Please enter a valid email address.';
+        newsletterMsg.style.color = '#ef4444';
+        return;
+      }
+      newsletterMsg.textContent = '✓ Subscribed successfully! Thank you.';
+      newsletterMsg.style.color = '#e31b23';
+      emailInput.value = '';
+      setTimeout(() => { newsletterMsg.textContent = ''; }, 3000);
+    });
+  </script>
+</body>
+</html>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Background Video */
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    /* Dark Overlay for better text visibility */
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.8));
+      z-index: 1;
+    }
+
+    /* Hero Content */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .hero h1 span {
+      color: #e31b23;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Button Styles */
+    .hero-buttons {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #e31b23;
+      color: #000000;
+      box-shadow: 0 4px 15px rgba(227,27,35,0.3);
+    }
+
+    .btn-primary:hover {
+      background: #b01017;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(227,27,35,0.4);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #e31b23;
+      color: #e31b23;
+    }
+
+    .btn-outline:hover {
+      background: #e31b23;
+      color: #000000;
+      transform: translateY(-3px);
+    }
+
+    /* Scroll Indicator (optional) */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      text-align: center;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    .scroll-indicator .mouse {
+      width: 26px;
+      height: 42px;
+      border: 2px solid white;
+      border-radius: 20px;
+      margin: 0 auto 8px;
+      position: relative;
+    }
+
+    .scroll-indicator .mouse::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 8px;
+      background: white;
+      border-radius: 2px;
+      animation: scrollWheel 1.5s infinite;
+    }
+
+    .scroll-indicator span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scrollWheel {
+      0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      100% { transform: translateX(-50%) translateY(15px); opacity: 0; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      .btn {
+        width: 80%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <!-- Background Video -->
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="6973-197914400_medium.mp4" type="video/mp4">
+      <!-- Fallback video URL - works and is reliable -->
+      <source src="6973-197914400_medium.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <h1>24X7, <span>Our Priority</span></h1>
+      <p>Medical Services is dedicated to providing high-quality healthcare with experienced doctors</p>
+      <div class="hero-buttons">
+        <a href="404.html" class="btn btn-primary">Book Appointment <i class="fas fa-arrow-right"></i></a>
+        <a href="404.html" class="btn btn-outline">Emergency Care <i class="fas fa-ambulance"></i></a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" onclick="window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })">
+      <div class="mouse"></div>
+      <span>Scroll Down</span>
+    </div>
+  </section>
+
+  <!-- Simple fallback for video autoplay -->
+  <script>
+    // Ensure video plays on mobile (autoplay policies)
+    const video = document.querySelector('.hero-video');
+    if (video) {
+      video.play().catch(() => {
+        // Autoplay prevented, add click listener to play
+        document.body.addEventListener('click', () => video.play(), { once: true });
+      });
+    }
+  </script>
+</body>
+</html>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #1f1f1f; }
+    ::-webkit-scrollbar-thumb { background: #e31b23; border-radius: 3px; }
+    
+    /* Cart drawer animation */
+    .cart-drawer {
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(100%);
+    }
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+    /* Product card hover effect */
+    .product-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(227,27,35,0.2);
+    }
+    /* Quantity button */
+    .qty-btn {
+      transition: all 0.2s;
+    }
+    .qty-btn:hover {
+      background-color: #e31b23;
+      color: black;
+    }
+    /* Overlay for mobile when drawer open */
+    .drawer-overlay {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s;
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+</head>
+<body class="bg-black text-white font-sans">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-30 bg-black/95 backdrop-blur border-b border-red-600/30 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <i class="fas fa-capsules text-2xl text-red-600"></i>
+      <span class="text-xl font-bold">Medi<span class="text-red-600">Store</span></span>
+    </div>
+    <button id="cartIconBtn" class="relative text-white hover:text-red-600 transition">
+      <i class="fas fa-shopping-cart text-2xl"></i>
+      <span id="cartCountBadge" class="absolute -top-2 -right-3 bg-red-600 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+    </button>
+  </header>
+
+  <!-- Products Grid -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-2">Medical Essentials</h1>
+    <p class="text-center text-gray-400 mb-10">Trusted healthcare products for your wellness</p>
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Products injected via JS -->
+    </div>
+  </main>
+
+  <!-- Cart Drawer (Sidebar) -->
+  <div id="drawerOverlay" class="drawer-overlay fixed inset-0 bg-black/70 z-40"></div>
+  <div id="cartDrawer" class="cart-drawer fixed top-0 right-0 w-full sm:w-96 h-full bg-zinc-900 shadow-2xl z-50 flex flex-col border-l border-red-600/30">
+    <div class="flex justify-between items-center p-5 border-b border-red-600/30">
+      <h2 class="text-xl font-bold">Your Cart</h2>
+      <button id="closeCartBtn" class="text-gray-400 hover:text-red-600 text-2xl">&times;</button>
+    </div>
+    <div id="cartItemsList" class="flex-1 overflow-y-auto p-4 space-y-4">
+      <!-- Cart items will appear here -->
+      <div class="text-center text-gray-400 py-8">Your cart is empty</div>
+    </div>
+    <div class="border-t border-red-600/30 p-5">
+      <div class="flex justify-between text-lg font-bold mb-4">
+        <span>Total:</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button id="checkoutBtn" class="w-full bg-red-600 text-black py-3 rounded-full font-bold hover:bg-red-700 transition">Checkout →</button>
+    </div>
+  </div>
+
+  <script>
+    // ---------- PRODUCT DATA (20 medical items) ----------
+    const products = [
+      { id: 1, name: "Baby Lotion", price: 24.99, image: "baby lotion.webp" },
+      { id: 2, name: "Baby Dove Cream", price: 49.99, image: "baby dove cream - Copy.webp" },
+      { id: 3, name: "Mama Earth", price: 29.99, image: "message oil.webp" },
+      { id: 4, name: "First Aid Kit", price: 19.99, image: "pharama20.webp" },
+      { id: 5, name: "N95 Masks (10pcs)", price: 14.99, image: "pharma2.webp" },
+      { id: 6, name: "Hand Sanitizer (500ml)", price: 8.99, image: "pharma19.webp" },
+      { id: 7, name: "Digital Weighing Scale", price: 34.99, image: "pharma18.webp" },
+      { id: 8, name: "Nebulizer Machine", price: 59.99, image: "pharma9.webp" },
+      { id: 9, name: "Heating Pad", price: 27.99, image: "me6.webp" },
+      { id: 10, name: "Wrist Blood Pressure Monitor", price: 39.99, image: "me7.webp" },
+      { id: 11, name: "Medical Stethoscope", price: 44.99, image: "me8.webp" },
+      { id: 12, name: "Infrared Forehead Thermometer", price: 36.99, image: "pharma8.webp" },
+      { id: 13, name: "Knee Support Brace", price: 22.99, image: "pharma16.webp" },
+      { id: 14, name: "Pill Organizer", price: 9.99, image: "pharma4.webp" },
+      { id: 15, name: "Glucose Monitor Kit", price: 54.99, image: "me12.webp" },
+      { id: 16, name: "Surgical Gloves (100pcs)", price: 12.99, image: "pharma3.webp" },
+      { id: 17, name: "Infrared Massager", price: 79.99, image: "pharma17.webp" },
+      { id: 18, name: "Posture Corrector", price: 29.99, image: "pharma1.webp" },
+      { id: 19, name: "Digital Baby Scale", price: 49.99, image: "pharma5.webp" },
+      { id: 20, name: "Humidifier", price: 42.99, image: "pharma6.webp" }
+    ];
+
+    // Cart state: { id, quantity }
+    let cart = [];
+
+    // DOM elements
+    const productsGrid = document.getElementById('productsGrid');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const cartTotalSpan = document.getElementById('cartTotal');
+    const cartCountBadge = document.getElementById('cartCountBadge');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartIconBtn = document.getElementById('cartIconBtn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    // Helper: Save cart to localStorage
+    function saveCart() {
+      localStorage.setItem('medicalCart', JSON.stringify(cart));
+    }
+
+    // Helper: Load cart from localStorage
+    function loadCart() {
+      const saved = localStorage.getItem('medicalCart');
+      if (saved) {
+        cart = JSON.parse(saved);
+      } else {
+        cart = [];
+      }
+      updateCartUI();
+    }
+
+    // Add product to cart
+    function addToCart(productId) {
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id: productId, quantity: 1 });
+      }
+      saveCart();
+      updateCartUI();
+      // Optional: flash feedback
+    }
+
+    // Remove item from cart
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      saveCart();
+      updateCartUI();
+    }
+
+    // Update quantity (increase/decrease)
+    function updateQuantity(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (item) {
+        const newQty = item.quantity + delta;
+        if (newQty <= 0) {
+          removeFromCart(productId);
+        } else {
+          item.quantity = newQty;
+          saveCart();
+          updateCartUI();
+        }
+      }
+    }
+
+    // Get product details by id
+    function getProductById(id) {
+      return products.find(p => p.id === id);
+    }
+
+    // Update entire cart UI (drawer, badge, total)
+    function updateCartUI() {
+      // Update badge
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCountBadge.textContent = totalItems;
+      
+      // Render cart items list
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = '<div class="text-center text-gray-400 py-8">Your cart is empty</div>';
+        cartTotalSpan.textContent = '$0.00';
+        return;
+      }
+      
+      let cartHtml = '';
+      let total = 0;
+      cart.forEach(item => {
+        const product = getProductById(item.id);
+        if (!product) return;
+        const itemTotal = product.price * item.quantity;
+        total += itemTotal;
+        cartHtml += `
+          <div class="flex gap-3 border-b border-gray-800 pb-3">
+            <img src="${product.image}" class="w-16 h-16 object-cover rounded-lg" alt="${product.name}">
+            <div class="flex-1">
+              <h4 class="font-semibold text-sm">${product.name}</h4>
+              <div class="text-red-600 text-sm">$${product.price.toFixed(2)}</div>
+              <div class="flex items-center gap-2 mt-2">
+                <button class="qty-btn w-7 h-7 rounded-full border border-red-600 text-red-600 hover:bg-red-600 hover:text-black transition" onclick="updateQuantity(${item.id}, -1)">-</button>
+                <span class="text-sm w-6 text-center">${item.quantity}</span>
+                <button class="qty-btn w-7 h-7 rounded-full border border-red-600 text-red-600 hover:bg-red-600 hover:text-black transition" onclick="updateQuantity(${item.id}, 1)">+</button>
+                <button class="ml-auto text-gray-400 hover:text-red-600 text-sm" onclick="removeFromCart(${item.id})"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </div>
+            <div class="text-right text-sm font-semibold">$${itemTotal.toFixed(2)}</div>
+          </div>
+        `;
+      });
+      cartItemsList.innerHTML = cartHtml;
+      cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+    }
+
+    // Open cart drawer
+    function openCart() {
+      cartDrawer.classList.add('open');
+      drawerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close cart drawer
+    function closeCart() {
+      cartDrawer.classList.remove('open');
+      drawerOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Render product grid (20 items)
+    function renderProducts() {
+      productsGrid.innerHTML = products.map(product => `
+        <div class="product-card bg-zinc-900 rounded-xl overflow-hidden border border-gray-800 hover:border-red-600 transition-all">
+          <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-1">${product.name}</h3>
+            <p class="text-red-600 font-bold text-xl">$${product.price.toFixed(2)}</p>
+            <div class="flex gap-2 mt-4">
+              <button onclick="addToCart(${product.id})" class="flex-1 bg-red-600 text-black py-2 rounded-full text-sm font-semibold hover:bg-red-700 transition">Add to Cart</button>
+              <button onclick="window.location.href='404.html'" class="flex-1 border border-red-600 text-red-600 py-2 rounded-full text-sm font-semibold hover:bg-red-600 hover:text-black transition">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Checkout: go to 404 only if cart has items
+    function handleCheckout() {
+      if (cart.length > 0) {
+        window.location.href = '404.html';
+      } else {
+        alert('Your cart is empty. Add items before checking out.');
+      }
+    }
+
+    // Event listeners
+    cartIconBtn.addEventListener('click', openCart);
+    closeCartBtn.addEventListener('click', closeCart);
+    drawerOverlay.addEventListener('click', closeCart);
+    checkoutBtn.addEventListener('click', handleCheckout);
+
+    // Initialize
+    loadCart();
+    renderProducts();
+
+    // Make functions global for onclick from dynamic HTML
+    window.addToCart = addToCart;
+    window.updateQuantity = updateQuantity;
+    window.removeFromCart = removeFromCart;
+  </script>
+
+  <section class="medical-ad-section">
+  <div class="medical-ad-container">
+
+    <div class="medical-ad-image">
+      <div class="medical-ad-shape"></div>
+
+      <img src="pharma11.webp" alt="Medical Service">
+
+      <div class="medical-ad-badge">
+        Trusted Medical Care
+      </div>
+    </div>
+
+    <div class="medical-ad-content">
+      <span class="medical-ad-tag">Medical Services</span>
+
+      <h2>World-Class Care for Your Health</h2>
+
+      <p>
+        At our medical center, quality healthcare is affordable and accessible.
+        Our experienced doctors and advanced facilities provide complete care,
+        including consultation, treatment, emergency services, and recovery support.
+      </p>
+
+      <div class="medical-ad-buttons">
+        <a href="404.html" class="medical-btn primary-btn">
+          Book Appointment
+        </a>
+
+        <a href="404.html" class="medical-btn secondary-btn">
+          Learn More →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.medical-ad-section{
+  width:100%;
+  background:#f3f3f3;
+  padding:90px 20px;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+}
+
+.medical-ad-container{
+  max-width:1300px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:70px;
+}
+
+.medical-ad-image{
+  position:relative;
+  width:100%;
+}
+
+.medical-ad-shape{
+  position:absolute;
+  top:-20px;
+  left:30px;
+  width:80%;
+  height:100%;
+  background:#ff1e1e;
+  clip-path:polygon(12% 0,100% 0,85% 100%,0 100%);
+  z-index:1;
+}
+
+.medical-ad-image img{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:620px;
+  border-radius:8px;
+  object-fit:cover;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+.medical-ad-badge{
+  position:absolute;
+  top:25px;
+  left:55px;
+  z-index:3;
+  background:#111;
+  color:#fff;
+  padding:14px 22px;
+  border-left:5px solid #fff;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:.5px;
+  max-width:260px;
+  animation:floatBadge 3s ease-in-out infinite;
+}
+
+.medical-ad-content{
+  animation:fadeRight 1s ease forwards;
+}
+
+.medical-ad-tag{
+  display:inline-block;
+  padding:10px 24px;
+  border-radius:40px;
+  background:#111;
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:25px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+
+.medical-ad-content h2{
+  font-size:68px;
+  line-height:1.05;
+  color:#111;
+  font-weight:800;
+  margin-bottom:28px;
+}
+
+.medical-ad-content p{
+  color:#444;
+  font-size:21px;
+  line-height:1.9;
+  margin-bottom:40px;
+  max-width:650px;
+}
+
+.medical-ad-buttons{
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+.medical-btn{
+  text-decoration:none;
+  padding:16px 34px;
+  font-size:16px;
+  font-weight:700;
+  border-radius:6px;
+  transition:.35s ease;
+}
+
+.primary-btn{
+  background:#ff1e1e;
+  color:#fff;
+}
+
+.primary-btn:hover{
+  background:#111;
+  transform:translateY(-4px);
+}
+
+.secondary-btn{
+  color:#111;
+  border-bottom:2px solid #ff1e1e;
+}
+
+.secondary-btn:hover{
+  color:#ff1e1e;
+  transform:translateX(8px);
+}
+
+@keyframes floatBadge{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-8px);
+  }
+}
+
+@keyframes fadeRight{
+  from{
+    opacity:0;
+    transform:translateX(60px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@media(max-width:992px){
+  .medical-ad-container{
+    grid-template-columns:1fr;
+    gap:50px;
+  }
+
+  .medical-ad-content{
+    text-align:center;
+  }
+
+  .medical-ad-content p{
+    margin:auto auto 35px;
+  }
+
+  .medical-ad-buttons{
+    justify-content:center;
+  }
+
+  .medical-ad-content h2{
+    font-size:48px;
+  }
+}
+
+@media(max-width:768px){
+  .medical-ad-section{
+    padding:70px 15px;
+  }
+
+  .medical-ad-content h2{
+    font-size:38px;
+  }
+
+  .medical-ad-content p{
+    font-size:17px;
+  }
+
+  .medical-ad-shape{
+    left:10px;
+    width:92%;
+  }
+
+  .medical-ad-badge{
+    top:15px;
+    left:20px;
+    font-size:15px;
+    padding:12px 16px;
+  }
+
+  .medical-btn{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
+</body>
+</html>
+<style>
+/* Footer Styles */
+    .footer-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      position: relative;
+      display: inline-block;
+      color: white;
+    }
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 35px;
+      height: 2px;
+      background: #e31b23;
+      border-radius: 2px;
+    }
+    .footer-link {
+      color: #9ca3af;
+      transition: color 0.3s;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .footer-link:hover {
+      color: #e31b23;
+      padding-left: 4px;
+    }
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      background: #1f1f1f;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #e31b23;
+      transition: all 0.3s;
+    }
+    .social-icon:hover {
+      background: #e31b23;
+      color: black;
+      transform: translateY(-3px);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+</style>
+<!-- Footer -->
+  <footer class="bg-black pt-16 pb-8 px-6 border-t border-zinc-900">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <img src="stacklylogo (1).webp" alt="Vitalis Health" class="h-16 w-auto md:h-20">
+            <span class="text-xl font-bold text-white"><span class="text-red-600"></span></span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Delivering compassionate, cutting-edge medical care with a patient-first approach. Your health journey, our commitment.</p>
+          <div class="flex gap-3">
+            <a href="404.html" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="404.html" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="404.html" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="404.html" class="social-icon"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-title">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="services.html" class="footer-link">Services</a></li>
+            <li><a href="buyproduct.html" class="footer-link">Buy Medicals</a></li>
+            <li><a href="about.html" class="footer-link">About</a></li>
+            <li><a href="contact.html" class="footer-link">Contact</a></li>
+            <li><a href="login.html" class="footer-link">Login</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-title">Our Services</h3>
+          <ul class="space-y-2">
+            <li><a href="404.html" class="footer-link">Cardiology</a></li>
+            <li><a href="404.html" class="footer-link">Neurology</a></li>
+            <li><a href="404.html" class="footer-link">Orthopedics</a></li>
+            <li><a href="404.html" class="footer-link">Pediatrics</a></li>
+            <li><a href="404.html" class="footer-link">Emergency 24/7</a></li>
+            <li><a href="404.html" class="footer-link">Telemedicine</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-title">Contact Info</h3>
+          <ul class="space-y-3 text-gray-400 text-sm mb-6">
+            <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-red-600 mt-1"></i><span>123 Medical Avenue, Health District, NY 10001</span></li>
+            <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-red-600"></i><span>+1 (800) 123-4567</span></li>
+            <li class="flex items-center gap-3"><i class="fas fa-envelope text-red-600"></i><span>care@vitalishealth.com</span></li>
+            <li class="flex items-center gap-3"><i class="fas fa-clock text-red-600"></i><span>24/7 Emergency Support</span></li>
+          </ul>
+          <h3 class="footer-title mt-2">Newsletter</h3>
+          <form id="footerNewsletter" class="mt-3 flex flex-col sm:flex-row gap-2">
+            <input type="email" placeholder="Your email" required class="flex-1 bg-zinc-900 border border-zinc-800 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-red-600">
+            <button type="submit" class="bg-red-600 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-red-700 transition">Subscribe</button>
+          </form>
+          <p id="newsletterMsg" class="text-xs text-gray-500 mt-2"></p>
+        </div>
+      </div>
+      <div class="footer-bottom mt-12 pt-6 text-center text-gray-500 text-sm">
+        <p>© 2026 Vitalis Health. All rights reserved. | Compassionate Care, Advanced Technology.</p>
+      </div>
+    </div>
+  </footer>
